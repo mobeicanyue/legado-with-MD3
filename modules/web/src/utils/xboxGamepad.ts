@@ -212,3 +212,14 @@ window.addEventListener("gamepadconnected", (e: GamepadEvent) => {
 window.addEventListener("gamepaddisconnected", (e: GamepadEvent) => {
   log("🎮 手柄已断开：", e.gamepad.id);
 });
+
+// 模块加载时主动检查已连接的手柄
+const existingGamepads = navigator.getGamepads?.() || [];
+for (const gp of existingGamepads) {
+  if (gp && !running) {
+    log("🎮 检测到已连接手柄：", gp.id);
+    running = true;
+    requestAnimationFrame(gamepadLoop);
+    break;
+  }
+}
