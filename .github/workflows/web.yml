@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 env:
-  UPSTREAM_REPOSITORY: gedoor/legado
+  UPSTREAM_REPOSITORY: mobeicanyue/legado-with-MD3
 
 jobs:
   build:
@@ -26,6 +26,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      - name: 输出文件树
+        run: tree
 
       - uses: pnpm/action-setup@v4
         name: Install pnpm
