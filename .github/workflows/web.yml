@@ -27,9 +27,6 @@ jobs:
         with:
           node-version: 22
 
-      - name: 输出文件树
-        run: tree
-
       - uses: pnpm/action-setup@v4
         name: Install pnpm
         id: pnpm-install
@@ -50,6 +47,13 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/web/package.json') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
+
+      - name: 输出 package.json 和 pnpm-lock.yaml
+        run: |
+          echo "package.json content:"
+          cat modules/web/package.json
+          echo "pnpm-lock.yaml content:"
+          cat modules/web/pnpm-lock.yaml
 
       - name: Build and move files
         working-directory: modules/web
