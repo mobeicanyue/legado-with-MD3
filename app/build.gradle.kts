@@ -55,7 +55,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "io.legato.kazusa"
+        applicationId = "io.legato.canyue"
         minSdk = 26
         targetSdk = 36
         versionCode = System.getenv("COMMIT_NUMBER")?.toInt()?.let { 10000 + it } ?: 32640
