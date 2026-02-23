@@ -34,7 +34,7 @@ interface GlobalState {
 const CONFIG: GamepadConfig = {
   DEBUG: true,              // 日志总开关
   AXIS_THRESHOLD: 0.7,      // 摇杆触发阈值
-  AXIS_COOLDOWN: 200,       // 摇杆触发冷却时间 (ms)
+  AXIS_COOLDOWN: 300,       // 摇杆触发冷却时间 (ms)
   DPAD_INDEX: {             // Xbox 标准映射
     UP: 12,
     DOWN: 13,
@@ -76,7 +76,7 @@ const state: GlobalState = {
  * @param direction 1 = 向下, -1 = 向上
  */
 function scrollPage(direction: number): void {
-  const offset = window.innerHeight - 80;
+  const offset = window.innerHeight - 110;
   const distance = direction === 1 ? offset : -offset;
 
   log(direction === 1 ? "🎮 翻页：向下" : "🎮 翻页：向上");
@@ -213,13 +213,9 @@ window.addEventListener("gamepaddisconnected", (e: GamepadEvent) => {
   log("🎮 手柄已断开：", e.gamepad.id);
 });
 
-// 模块加载时主动检查已连接的手柄
-const existingGamepads = navigator.getGamepads?.() || [];
-for (const gp of existingGamepads) {
-  if (gp && !running) {
-    log("🎮 检测到已连接手柄：", gp.id);
+export function initXboxGamepad(): void {
+  if (!running) {
     running = true;
     requestAnimationFrame(gamepadLoop);
-    break;
   }
 }
